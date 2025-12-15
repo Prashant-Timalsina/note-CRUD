@@ -2,20 +2,6 @@
 
 include 'db.php';
 
-// $tbcreate="
-//     CREATE noteapp IF NOT EXIST (
-//         id INT PRIMARY KEY AUTO_INCREMENT,
-//         title VARCHAR(20),
-//         context VARCHAR(200)
-//     );
-// ";
-
-// if($conn->query($tbcreate)){
-//     echo "Table Created";
-// } else {
-//     echo "Error: ".$tbcreate."<br>". $conn->error;
-// }
-
 
 if($_SERVER['REQUEST_METHOD'] == "POST"){
     $action = $_POST['action'];
@@ -26,15 +12,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
             $stmt->bind_param("ss",$_POST['title'],$_POST['context']);
 
             $stmt-> execute();
-            echo "Note Added";
-
-            // header ("Location: index.php");
-            // exit();
+            echo "<script>alert('Note added');</script>";
+            echo "<script>window.location.href='index.php';</script>";
 
             break;
-
-        // case 'update':
-            
     
         case 'delete':
             if(isset($_POST['id']) && !empty($_POST['id'])){
@@ -43,13 +24,15 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                 $stmt = $conn->prepare($sql);
                 $stmt->bind_param("i",$id);
                 $stmt->execute();
-                echo "Note Deleted";
-            } else {
-                echo "No id to delete";
-            }          
 
-            // header("Location: index.php");
-            // exit();
+                echo "<script>alert('Note Deleted');</script>";
+                echo "<script>window.location.href='index.php';</script>";
+
+            } else {
+
+                echo "<script>alert('No id to delete');</script>";
+                echo "<script>window.location.href='index.php';</script>";
+            }          
 
             break;
         
@@ -63,9 +46,13 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                 $stmt = $conn->prepare($sql);
                 $stmt->bind_param("ssi",$title,$context,$id);
                 $stmt->execute();
-                echo "Note Updated";
+
+                echo "<script>alert('Note Updated');</script>";
+                echo "<script>window.location.href='index.php';</script>";
             } else {
-                echo "No id to delete";
+
+                echo "<script>alert('No id to update');</script>";
+                echo "<script>window.location.href='index.php';</script>";
             }
             break;
 
