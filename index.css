@@ -1,0 +1,160 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+input,textarea{
+    width:100%;
+    border:none;
+    padding: 10px 5px 20px 5px;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border: 1px solid rgba(155, 155, 155, 0.322);
+}
+
+.identify {
+
+    gap: 8px;
+    padding: 0;
+    margin: 0 5px;
+    border-bottom: 1px solid rgb(102, 102, 102);
+    width: fit-content;
+}
+
+small{
+    opacity: 0.5;
+    font-size: 10;
+}
+
+.identify label {
+    display: auto;
+    font-weight: bold;
+}
+
+.identify input {
+    width: 50px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+}
+
+.identify input:focus {
+    outline: none;
+    border-bottom: 2px solid #007bff;
+}
+
+.identify input::placeholder {
+    opacity: 0;
+}
+
+input::placeholder,
+textarea::placeholder {
+    transition: opacity 0.2s ease;
+}
+
+input:focus::placeholder,
+textarea:focus::placeholder {
+    opacity: 0;
+}
+
+
+
+div{
+    margin:1rem;
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
+    margin:0;
+    justify-content: center;
+}
+
+.card{
+    flex:1;
+    border: 1px solid rgb(202, 252, 252);
+    min-height: 30vh;
+    max-width: 500px;
+}
+
+.card form{
+    margin: 10px;
+    /* background-color: rgba(198, 255, 255, 0.582); */
+    /* border: 1px solid black; */
+}
+
+.card, .card input,.card textarea{
+    background-color: rgba(227, 255, 255, 0.322);
+
+}
+
+
+.card button {
+    padding: 8px 10px;
+    background-color: rgb(93, 150, 255);
+    color: rgb(246, 253, 216);
+    border-radius: 2rem;
+    margin:10px;
+}
+
+button{
+    cursor: pointer;
+}
+
+textarea{
+    vertical-align: top ;
+}
+
+td,tr{
+    padding:5px;
+}
+
+h3{
+    margin-bottom: 0.5rem;
+    padding: 10px 7px;
+    text-decoration: underline;
+}
+
+.view{
+    align-items: left;
+}
+
+.list{
+    display: flex;
+    align-items: center;
+    gap:15px;
+    margin: 0 1rem;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.content .title{
+    font-weight: 700;
+    font-size: larger;
+}
+
+.list button{
+    padding:8px 10px;
+    background-color: rgb(214, 34, 34);
+    color: rgb(246, 253, 216);
+}
+
+
+@media (max-width: 650px) {
+
+    .container{
+        flex-direction: column;
+    }
+
+
+    
+}

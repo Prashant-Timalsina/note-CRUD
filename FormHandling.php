@@ -25,7 +25,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                 $stmt->bind_param("i",$id);
                 $stmt->execute();
 
-                echo "<script>alert('Note Deleted');</script>";
+                if($stmt->affected_rows > 0){
+                    echo "<script>alert('Note Deleted');</script>";
+                } else {
+                    echo "<script>alert('Note Not Found');</script>";
+                }
                 echo "<script>window.location.href='index.php';</script>";
 
             } else {
@@ -47,8 +51,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                 $stmt->bind_param("ssi",$title,$context,$id);
                 $stmt->execute();
 
-                echo "<script>alert('Note Updated');</script>";
-                echo "<script>window.location.href='index.php';</script>";
+                if($stmt->affected_rows > 0){
+                    echo "<script>alert('Note Updated');</script>";
+                } else {
+                    echo "<script>alert('Note Not Found');</script>";
+                }
+                echo "<script> window.location.href = 'index.php';</script>";
             } else {
 
                 echo "<script>alert('No id to update');</script>";
