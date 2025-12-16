@@ -8,6 +8,7 @@
 <body>
 
     <?php include 'db.php'; ?>
+    <?php include 'FormHandling.php' ?>
     <h2 style="text-align:center; text-decoration:underline">Note App</h2>
 
 
@@ -49,35 +50,51 @@
 <!------- View or delete notes ------------>
 <div class="view">    
 <?php
-    $sql = "SELECT * FROM noteapp ORDER BY id DESC LIMIT 5 ";
-    $result = $conn->query($sql);
-
-    if($result->num_rows==0){
-        echo "No notes";
+    function e($data) {
+        return htmlspecialchars(
+            html_entity_decode($data, ENT_QUOTES, 'UTF-8'),
+            ENT_QUOTES,
+            'UTF-8'
+        );
     }
-    ?>
-<h3>Notes:</h3>
 
-<?php 
-while ($row = $result->fetch_assoc()) {
-    echo "
-    <div class='list'>
-        <div class='idlist'>" . htmlspecialchars($row['id']) . ")</div>
+$rows = [];
+if (!isset($conn) || !$conn instanceof PDO) {
+    echo "Database connection not available.";
+} else {
+    try {
+        $sql = "SELECT * FROM noteapp ORDER BY id DESC LIMIT 5";
+        $stmt = $conn->query($sql);
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo "DB Error: " . htmlspecialchars($e->getMessage());
+        $rows = [];
+    }
+}
 
-        <div class='content'>
-            <div class='title'>" . htmlspecialchars($row['title']) . "</div>
-            <div class='context'>" . htmlspecialchars($row['context']) . "</div>
+if(empty($rows)){
+    echo "No notes";
+} else {
+    foreach($rows as $row){
+        echo "
+        <div class='list'>
+            <div class='idlist'>" . (int)$row['id'] . ")</div>
+            <div class='content'>
+                <div class='title'>" . e($row['title']) . "</div>
+                <div class='context'>" . e($row['context']) . "</div>
+            </div>
+            <div class='action'>
+                <form action='FormHandling.php' method='POST'>
+                    <input type='hidden' name='id' value='" . (int)$row['id'] . "'>
+                    <button type='submit' name='action' value='delete'>Delete</button>
+                </form>
+            </div>
         </div>
-
-        <div class='action'>
-            <form action='FormHandling.php' method='POST'>
-                <input type='hidden' name='id' value='" . $row['id'] . "'>
-                <button type='submit' name='action' value='delete'>Delete</button>
-            </form>
-        </div>
-    </div><hr>";
+        <hr>";
+    }
 }
 ?>
+
 
 
 
